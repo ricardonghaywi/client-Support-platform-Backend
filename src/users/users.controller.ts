@@ -11,7 +11,7 @@ export class UsersController {
 
     @Post('/signup')
     createUser(@Body() body: CreateUserDto) {
-        return this.AuthService.Singup(body.firstName, body.lastName, body.email, body.password, body.isVip, body.role);
+        return this.AuthService.Singup(body.firstName, body.lastName, body.email, body.password, body.isVip, body.isAdmin);
 
     }
 
