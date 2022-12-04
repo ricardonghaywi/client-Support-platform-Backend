@@ -1,5 +1,4 @@
 import { IsBoolean, IsEmail, IsOptional, IsString, IsAlpha, MinLength, IsEnum } from 'class-validator';
-import { Role } from '../schemas/role.enum';
 
 
 export class CreateUserDto {
@@ -26,10 +25,9 @@ export class CreateUserDto {
     @IsOptional()
     isVip: boolean
 
-    
-    @IsEnum(Role)
+    @IsBoolean()
     @IsOptional()
-    role: string;
+    isAdmin: boolean;
 
 
 }
