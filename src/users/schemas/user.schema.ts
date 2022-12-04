@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Complaint } from 'src/complaints/schemas//complaint.schema';
-import { Role } from './role.enum';
 
 
 export type UserDocument = mongoose.HydratedDocument<User>;
@@ -25,12 +24,9 @@ export class User {
     @Prop({default: false})
     isVip: boolean;
 
-    @Prop({default: Role.USER})
-    role: string;
-    enum: Role
+    @Prop({default: false})
+    isAdmin: boolean;
 
-    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Complaint' }] })
-    complaints: Complaint[]
 }
 
 
