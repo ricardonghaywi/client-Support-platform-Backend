@@ -8,7 +8,7 @@ import { ComplaintsModule } from './complaints/complaints.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UsersModule, ComplaintsModule, MongooseModule.forRoot('mongodb+srv://ricardongh:kakapipi@cluster0.5kwtagx.mongodb.net/?retryWrites=true&w=majority'), AuthModule],
+  imports: [UsersModule, ComplaintsModule, MongooseModule.forRoot(''), AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
