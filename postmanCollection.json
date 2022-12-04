@@ -1,0 +1,673 @@
+{
+	"info": {
+		"_postman_id": "d5dd7640-e13b-47e6-8bda-b95b34bded29",
+		"name": "postmanCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"john\",\n    \"lastName\": \"brown\",\n    \"email\": \"mail@test.com\",\n    \"password\": \"verysecurepassword\"\n\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mail@test.com\",\n    \"password\": \"verysecurepassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Complaint as a user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZjYxZDhiYzE0NmQxNjAyNGZkMWUiLCJpYXQiOjE2NzAxODI0ODYsImV4cCI6MTY3MDE4NjA4Nn0.YpDLNo96YyoD4N5hslndE3YH3L-dG3IeF9TrT7Ve3Qc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"first complaint\",\n    \"body\": \"i have an issue\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/new",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creating a second complaint",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZjYxZDhiYzE0NmQxNjAyNGZkMWUiLCJpYXQiOjE2NzAxODI0ODYsImV4cCI6MTY3MDE4NjA4Nn0.YpDLNo96YyoD4N5hslndE3YH3L-dG3IeF9TrT7Ve3Qc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"urgent\",\n    \"body\": \"i cant log into my account anymore\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/new",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "view my complaints",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZjYxZDhiYzE0NmQxNjAyNGZkMWUiLCJpYXQiOjE2NzAxODI0ODYsImV4cCI6MTY3MDE4NjA4Nn0.YpDLNo96YyoD4N5hslndE3YH3L-dG3IeF9TrT7Ve3Qc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/complaints/User",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign up with invalid firstName",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"karl11\",\n    \"lastName\": \"anyname\",\n    \"email\": \"myemail@test.com\",\n    \"password\": \"anypass\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign up with short password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"oliver\",\n    \"lastName\": \"johnson\",\n    \"email\": \"oliver@mail.com\",\n    \"password\": \"abc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login with wrong email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"email\": \"emailThatDoesntExist@test.com\",\n    \"password\": \"verysecurepassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login with wrong password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"email\": \"mail@test.com\",\n    \"password\": \"WrongPassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup as admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"anAdmin\",\n    \"lastName\": \"whatever\",\n    \"email\": \"admin@mail.com\",\n    \"password\": \"mypassword\",\n    \"isAdmin\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login as admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@mail.com\",\n    \"password\": \"mypassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update a complaint status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZmEzZDhiYzE0NmQxNjAyNGZkMmMiLCJpYXQiOjE2NzAxODM1NzAsImV4cCI6MTY3MDE4NzE3MH0.VgcJe1redTe6IRgBn6cBg5tHR3T0JXgDMBQht6N1VEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"RESOLVED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/update/638cf72b8bc146d16024fd25",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"update",
+						"638cf72b8bc146d16024fd25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updating a complaint status with invalid status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZmEzZDhiYzE0NmQxNjAyNGZkMmMiLCJpYXQiOjE2NzAxODM1NzAsImV4cCI6MTY3MDE4NzE3MH0.VgcJe1redTe6IRgBn6cBg5tHR3T0JXgDMBQht6N1VEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"Under review\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/update/638cf72b8bc146d16024fd25",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"update",
+						"638cf72b8bc146d16024fd25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trying create complaint as an admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZmEzZDhiYzE0NmQxNjAyNGZkMmMiLCJpYXQiOjE2NzAxODM1NzAsImV4cCI6MTY3MDE4NzE3MH0.VgcJe1redTe6IRgBn6cBg5tHR3T0JXgDMBQht6N1VEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\" : \"admin complaint\",\n    \"body\": \"can i create one ?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/new",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trying to view my complaints as admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZmEzZDhiYzE0NmQxNjAyNGZkMmMiLCJpYXQiOjE2NzAxODM1NzAsImV4cCI6MTY3MDE4NzE3MH0.VgcJe1redTe6IRgBn6cBg5tHR3T0JXgDMBQht6N1VEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/complaints/User",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updating a complaint as a user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZjYxZDhiYzE0NmQxNjAyNGZkMWUiLCJpYXQiOjE2NzAxODI0ODYsImV4cCI6MTY3MDE4NjA4Nn0.YpDLNo96YyoD4N5hslndE3YH3L-dG3IeF9TrT7Ve3Qc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"REJECTED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/update/638cf72b8bc146d16024fd25",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"update",
+						"638cf72b8bc146d16024fd25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trying to view all complaints as a user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZjYxZDhiYzE0NmQxNjAyNGZkMWUiLCJpYXQiOjE2NzAxODI0ODYsImV4cCI6MTY3MDE4NjA4Nn0.YpDLNo96YyoD4N5hslndE3YH3L-dG3IeF9TrT7Ve3Qc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/all",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getting all complaints with filter by status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZmEzZDhiYzE0NmQxNjAyNGZkMmMiLCJpYXQiOjE2NzAxODM1NzAsImV4cCI6MTY3MDE4NzE3MH0.VgcJe1redTe6IRgBn6cBg5tHR3T0JXgDMBQht6N1VEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"REJECTED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/all",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewing all complaints without filtering by status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZmEzZDhiYzE0NmQxNjAyNGZkMmMiLCJpYXQiOjE2NzAxODM1NzAsImV4cCI6MTY3MDE4NzE3MH0.VgcJe1redTe6IRgBn6cBg5tHR3T0JXgDMBQht6N1VEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/all",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewing all complaints with invalid status filter",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzhjZmEzZDhiYzE0NmQxNjAyNGZkMmMiLCJpYXQiOjE2NzAxODM1NzAsImV4cCI6MTY3MDE4NzE3MH0.VgcJe1redTe6IRgBn6cBg5tHR3T0JXgDMBQht6N1VEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"INVALID STATUS\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/complaints/all",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"complaints",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
