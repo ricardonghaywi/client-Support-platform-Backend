@@ -11,7 +11,7 @@ export class AuthService {
         private jwtService: JwtService
         ) {}
 
-    async Singup(firstName: string, lastname: string, email: string, password: string, isVip: boolean, Role: string){
+    async Singup(firstName: string, lastname: string, email: string, password: string, isVip: boolean, isAdmin: boolean){
         const user = await this.usersService.findByemail(email);
 
         if (user) {
@@ -22,7 +22,7 @@ export class AuthService {
         const Rounds = 10;
         const hashedPw = await bcrypt.hash(password, Rounds);
 
-        const NewUser = await this.usersService.create(firstName, lastname, email,  hashedPw, isVip, Role);
+        const NewUser = await this.usersService.create(firstName, lastname, email,  hashedPw, isVip, isAdmin);
         return NewUser;
 }
 
@@ -48,7 +48,7 @@ async validateUser(email: string, password: string): Promise<any> {
 }
 
 async login(user: any) {
-    const payload = { email: user.email, sub: user._id , role: user.role };
+    const payload = { sub: user._id };
 
     return {
         access_token: this.jwtService.sign(payload),
