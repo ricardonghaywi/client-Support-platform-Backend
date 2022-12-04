@@ -1,17 +1,30 @@
 import { Model } from 'mongoose';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ComplaintDocument } from './schemas/complaint.schema';
+import { UsersService } from 'src/users/users.service';
 
 
 
 @Injectable()
 export class ComplaintsService {
 
-    constructor(@InjectModel('Complaint') private complaintModel: Model<ComplaintDocument>) {}
+    constructor(@InjectModel('Complaint') private complaintModel: Model<ComplaintDocument>,
+    private UsersService: UsersService) {}
 
 
     async create(title: string, body: string, creator: string ){
+
+        const user =  await this.UsersService.findOne(creator);
+
+        if (!user) {
+            throw new NotFoundException;
+
+        }
+        if(user.isAdmin){
+            throw new UnauthorizedException;
+        }
+
         const Newcomplaint = new this.complaintModel({
             title,
             body,
@@ -26,7 +39,16 @@ export class ComplaintsService {
 
 
 
-    async updateStatus(id: string, status: string){
+    async updateStatus(id: string, status: string, userId: string){
+        const user = await this.UsersService.findOne(userId);
+        if(!user) {
+            throw new NotFoundException;
+        }
+
+        if(!user.isAdmin) {
+            throw new UnauthorizedException;
+        }
+
 
         const complaint = await this.complaintModel.findById(id);
         if(!complaint) {
@@ -45,6 +67,15 @@ export class ComplaintsService {
 
     async GetUserComplaints(userid: string) {
 
+        const user = await this.UsersService.findOne(userid);
+        if(!user) {
+            throw new NotFoundException;
+        }
+        if(user.isAdmin) {
+
+            throw new UnauthorizedException;
+        }
+
         const complaints = await this.complaintModel.find({creator: userid});
 
         if(!complaints) {
@@ -57,7 +88,18 @@ export class ComplaintsService {
 
 
 
-    async getAll(filterBystatus: string){
+    async getAll(filterBystatus: string, UserId: string){
+
+        const user = await this.UsersService.findOne(UserId);
+        if(!user) {
+            throw new NotFoundException;
+        }
+
+        if (!user.isAdmin) {
+            throw new UnauthorizedException;
+        }
+
+       
 
         const  Status  = filterBystatus;
 
@@ -170,4 +212,5 @@ export class ComplaintsService {
 
     
 }
+
 
