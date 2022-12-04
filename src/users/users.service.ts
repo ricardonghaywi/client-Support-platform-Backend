@@ -9,14 +9,14 @@ export class UsersService {
 
     constructor(@InjectModel('User') private userModel: Model<UserDocument>) {}
 
-    async create(firstName: string, lastName: string, email: string, password: string, isVip: boolean, role: string ){
+    async create(firstName: string, lastName: string, email: string, password: string, isVip: boolean, isAdmin: boolean ){
         const user = new this.userModel({
             firstName, 
             lastName, 
             email, 
             password, 
             isVip, 
-            role
+            isAdmin
         });
 
         const result = await user.save();
@@ -32,6 +32,19 @@ export class UsersService {
         
 
     }
+
+    async findOne(id: string){
+
+        const user =  await this.userModel.findById(id);
+        return user;
+
+       
+    }
+
+
+
+
+}
 
  
 
