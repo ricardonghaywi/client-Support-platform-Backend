@@ -33,12 +33,7 @@ export class UsersService {
 
     }
 
-    findall(){
-       return this.userModel.find().exec();
-
-       
-    }
-
+ 
 
 
 
