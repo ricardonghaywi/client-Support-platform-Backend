@@ -22,7 +22,7 @@ export class ComplaintsService {
 
         }
         if(user.isAdmin){
-            throw new UnauthorizedException;
+            throw new UnauthorizedException('only users can access this route');
         }
 
         const Newcomplaint = new this.complaintModel({
@@ -46,11 +46,19 @@ export class ComplaintsService {
         }
 
         if(!user.isAdmin) {
-            throw new UnauthorizedException;
+            throw new UnauthorizedException('only admins can access this route');
         }
 
+        let complaint;
 
-        const complaint = await this.complaintModel.findById(id);
+        try {
+
+         complaint = await this.complaintModel.findById(id);
+        }
+        catch(error) {
+            throw new NotFoundException('invalid id');
+        }
+
         if(!complaint) {
             throw new NotFoundException('Could not find complaint!');
         }
@@ -60,9 +68,7 @@ export class ComplaintsService {
         complaint.save();
         return complaint;
 
-
-    }
-
+}
 
 
     async GetUserComplaints(userid: string) {
@@ -73,18 +79,19 @@ export class ComplaintsService {
         }
         if(user.isAdmin) {
 
-            throw new UnauthorizedException;
+            throw new UnauthorizedException('only users can access this route');
         }
 
         const complaints = await this.complaintModel.find({creator: userid});
 
-        if(!complaints) {
-            return('you have not issued any complaint')
+        if ( complaints.length === 0 ){
+            
+            return('you have not issued any complaint !');
+        
         }
 
-        return complaints;
-    }
-
+            return complaints;
+ }
 
 
 
@@ -96,121 +103,132 @@ export class ComplaintsService {
         }
 
         if (!user.isAdmin) {
-            throw new UnauthorizedException;
+            throw new UnauthorizedException('only admins can access this route');
         }
 
-       
 
-        const  Status  = filterBystatus;
+        let pipeline = [];
 
-        
-        
-        const complaints = await  this.complaintModel.aggregate([
+        if (filterBystatus){
 
+            pipeline.push({
 
-            {
-                $lookup: {
-                    from: 'users',
-                    localField: 'creator',
-                    foreignField: '_id',
-                    as: 'User'
-                }
-
-            },
-
-            {$unwind: '$User'},
-
-            {
-                $sort:{
-                    createdDate: -1
-                }
-            },
-
-        
-            {
-                $match:{
-                    ...(Status ? { status: Status } : {} ),
-                }
-            },
-
-          
-            {
-                $group: {
-                    _id: null,
-                    Vip:{
-                        $push: {
-                            $cond: [
-                                {
-                                $eq: ['$User.isVip', true]
-                        },
-
-                        '$$ROOT',
-                        '$$REMOVE',
-                    ],
-      
-                        }
-                    },
-
-                    NonVip: {
-
-                        $push: {
-                            $cond: [
-
-                                {
-                                    $eq: ['$User.isVip', false],
-
-                                },
-                                '$$ROOT',
-                                '$$REMOVE',
-                            ]
-                        },
-                     
-                      
-
+                
+                    $match:{
+                        status: filterBystatus
                     }
-
-                }
+                
             },
+            );
 
-        
-            {
-                $project: {
+        }
 
-                    _id: 0,
-
-                    "Vip.User.firstName": 1,
-                     "Vip.User.lastName": 1,
-                     "Vip.User.email": 1,
-                     'Vip.title': 1,
-                     'Vip.body': 1,
-                     'Vip.status': 1,
-                     'Vip.createdDate': 1,
-                    
-
-                      "NonVip.User.firstName": 1,
-                      "NonVip.User.lastName": 1,
-                      "NonVip.User.email": 1,
-                      'NonVip.title': 1,
-                     'NonVip.body': 1,
-                     'NonVip.status': 1,
-                     'NonVip.createdDate': 1,
-                     
-                }
-            },
-
+        pipeline.push(
             
+        {
+            $project: {
+
+                _id:0,
+                __v:0
+            }
+        },
 
 
+        {
 
-        ]);
+            $sort:{
+                createdDate: -1
+            }
 
-        return complaints;
+        },
+
+        {
+
+            $lookup: {
+                from: 'users',
+                localField: 'creator',
+                foreignField: '_id',
+                as: 'User'
+            }
+
+        },
+
+);
 
 
+ pipeline.push(
+
+    {
+
+    $project:{
+        creator: 0,
+        'User._id':0,
+        'User.__v': 0,
+        'User.password':0,
+        'User.isAdmin':0
 
     }
+},
 
+{
+    $unwind:'$User'
+},
+
+{
+    $group: {
+        _id: null,
+        Vip: {
+           $push: {
+              $cond: [{ $eq: ['$User.isVip', true] },
+                 '$$ROOT',
+                 '$$REMOVE'
+              ]
+           }
+        },
+
+        nonVip: {
+           $push: {
+              $cond: [{ $eq: ['$User.isVip', false] },
+                 '$$ROOT',
+                 '$$REMOVE'
+              ]
+           }
+        }
+     },
+
+},
     
+);
+
+ pipeline.push({
+    
+    $project: {
+         
+        _id: 0,
+        'Vip.User.isVip': 0,
+        'nonVip.User.isVip': 0,
+
+    }
+}
+);
+
+
+ const complaints = await this.complaintModel.aggregate(pipeline);
+
+ if(complaints.length === 0 && filterBystatus) {
+    return('there are no complaints with the status you entered');
+ }
+
+ if (complaints.length === 0  && (!filterBystatus)) {
+
+    return('there are no complaints!');
+ }
+
+ return complaints;
+
+        
 }
 
+
+}
 
