@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Complaint } from 'src/complaints/schemas//complaint.schema';
 
 
 export type UserDocument = mongoose.HydratedDocument<User>;
@@ -31,3 +30,5 @@ export class User {
 
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.index({email: 1});
