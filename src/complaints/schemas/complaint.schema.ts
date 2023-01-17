@@ -31,3 +31,7 @@ export class Complaint {
 }
 
 export const ComplaintSchema = SchemaFactory.createForClass(Complaint);
+
+ComplaintSchema.index({creator: 1});
+
+ComplaintSchema.index({ createdDate: -1, status:1});
