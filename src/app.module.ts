@@ -8,7 +8,7 @@ import { ComplaintsModule } from './complaints/complaints.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UsersModule, ComplaintsModule, MongooseModule.forRoot(''), AuthModule],
+  imports: [UsersModule, ComplaintsModule, MongooseModule.forRoot('mongodb://localhost/sandra'), AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
